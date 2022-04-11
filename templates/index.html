@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+	Home
+{% endblock title %}
+{% block content %}
+	<!-- Navtabs -->
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		<li class="nav-item" role="presentation">
+			<button class="nav-link active" id="project-tab" data-bs-toggle="tab" data-bs-target="#project" type="button" role="tab" aria-controls="project" aria-selected="true">Projects</button>
+		</li>
+		<li class="nav-item" role="presentation">
+			<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+		</li>
+	</ul>
+	<div class="tab-content" id="myTabContent">
+		<div class="tab-pane fade show active" id="project" role="tabpanel" aria-labelledby="project-tab">
+			<div class="mt-3">
+				<div class="row row-cols-1 row-cols-md-3 g-4 mb-3">
+					{% for q in projects %}
+						<div class="col">
+							<div class="card bg-white h-100">
+								<img src="{{q.image.url}}" class="card-img-top" alt="...">
+								<div class="card-body">
+									<h6 class="card-title">{{q.title}}</h6>
+									<p class="card-text"><small>{{q.description|truncatewords:15}}</small></p>
+									<p class="card-text"><a class="btn btn-sm btn-dark" href="{% url 'detail' q.pk %}"><small>read more</small></a></p>
+								</div>
+								<div class="card-footer bg-white">
+									<small class="text-primary">{{q.created}}</small>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+			<div class="mt-3">
+				{% for p in profile %}
+					<div class="mb-3">
+						<div class="row g-0">
+							<div class="col-md-4">
+								<img src="{{p.image.url}}" class="img-fluid rounded h-100" alt="...">
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<p class="border-bottom border-success text-success" style="padding:5px;">Name</p>
+									<h6 class="card-title">{{p.name}}</h6>
+									<p class="border-bottom border-success text-success" style="padding:5px;">Skills</p>
+									<p class="container card-text">{{p.skills}}</p>
+								</div>
+							</div>
+						</div>
+						<div class="mt-3">
+							<p class="border-bottom border-success text-success" style="padding:5px;">Contacts</p>
+							<p class="card-text">Email:<a class="nav-link" href="mailto: {{p.email}}">{{p.email}}</a></p>
+							<p class="card-text">Whatsapp:<a class="nav-link" href="https://api.whatsapp.com/send/?phone={{p.phone}}">{{p.phone}}</a></p>
+							<p class="card-text">Github:<a class="nav-link" href="{{p.github}}">{{p.github}}</a></p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+	Quotes
+{% endblock title %}
+{% block content %}
+	<div class="row row-cols-1 row-cols-md-3 g-4 mb-3">
+		{% for q in quotes %}
+		<div class="col">
+			<div class="card text-white bg-dark h-100">
+				<div class="card-body">
+					<p class="card-text">{{q.quote}}</p>
+				</div>
+				<div class="card-footer">
+					<small class="text-muted">{{q.author}}</small>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+{% endblock content %}
